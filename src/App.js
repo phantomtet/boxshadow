@@ -8,8 +8,8 @@ export default function App () {
     id: v4(),
     shiftRight: 25,
     shiftDown: 25,
-    spread: 0,
     blur: 50,
+    spread: 0,
     opacity: 50,
     inset: false,
     backgroundColor: '#000000'
@@ -49,11 +49,11 @@ export default function App () {
   }, [layerData])
 
   // check if layerfocus is valid or not, if not set focus to other layer
-  // useEffect(() => {
-  //   if (!layerData.find(layer => layer.id === layerFocus)) {
-  //     setLayerFocus(layerData[0].id)
-  //   }
-  // }, [layerData])
+  useEffect(() => {
+    if (!layerData.find(layer => layer.id === layerFocus)) {
+      setLayerFocus(layerData[0].id)
+    }
+  }, [layerData])
 
 
   //delete layer action
@@ -92,7 +92,23 @@ export default function App () {
     })
     setLayerData(newArray)
   }
-
+  //random template generator
+  const randomTemplate = () => {
+    let g = Math.floor(Math.random()*4+1) //random number of Layer
+    let array = []
+    for (let i = 0; i < g; i++) {
+      array = array.concat({
+        id: v4(),
+        shiftRight: Math.floor(Math.random()*100-50),
+        shiftDown: Math.floor(Math.random()*100-50),
+        blur: Math.floor(Math.random()*100),
+        spread: Math.floor(Math.random()*100),
+        opacity: Math.floor(Math.random()*100),
+        backgroundColor: '#000000'
+      })
+    }
+    setLayerData(array)
+  }
 
   
   return (
@@ -127,7 +143,7 @@ export default function App () {
             <input checked={layerData.find(layer => layer.id === layerFocus) && layerData.find(layer => layer.id === layerFocus).inset} onChange={({target}) => setValue('inset', target.checked)} type='checkbox' style={{margin: 'auto 7px auto 0'}}/><div>Inset</div>
           </div>
           {/* color */}
-          <input type='color' value={layerData.find(layer => layer.id === layerFocus).backgroundColor} onChange={({target}) => setValue('backgroundColor', target.value)}/>
+          <input type='color' value={layerData.find(layer => layer.id === layerFocus) && layerData.find(layer => layer.id === layerFocus).backgroundColor} onChange={({target}) => setValue('backgroundColor', target.value)}/>
         </div>
         <div className='test' style={{padding: '20px'}}>
           <div className='canclick' style={{marginBottom: '20px'}} onClick={() => setLayerData(prevState => [...prevState, {id: v4(), shiftRight: 25, shiftDown: 25, spread: 0, blur: 50, opacity: 50, inset: false, backgroundColor: '#000000'}])}>
@@ -156,8 +172,8 @@ export default function App () {
             {`box-shadow: ${boxShadow}`}
           </p>
         </div>
-        <div className='canclick' onClick={saveLayer}>
-          Save 
+        <div className='canclick' onClick={randomTemplate}>
+          Random template 
         </div>
         {
           saveID && <p>URL: https://boxshadow-ac98f.web.app/{saveID}</p>
