@@ -1,6 +1,7 @@
 * {
   box-sizing: border-box;
 }
+
 .test {
   border: 1px solid red;
 }
@@ -10,4 +11,7 @@
 }
 .canclick:hover {
   background-color: lightgreen;
+}
+.candrag {
+  cursor: grab;
 }
