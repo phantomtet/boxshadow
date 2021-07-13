@@ -18,3 +18,9 @@
 img {
   object-fit: fill;
 }
+.btn:hover {
+  background-color: #e8e8e8;
+}
+.btn {
+  transition: 350ms ease all;
+}

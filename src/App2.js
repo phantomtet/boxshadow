@@ -1,5 +1,5 @@
 import React, {useState, useRef, useEffect} from 'react'
-import {Box, Popper, MenuList, MenuItem, IconButton, Button, Grid, Container, Paper, TextField, Hidden, ImageList, ImageListItem, ClickAwayListener} from '@material-ui/core'
+import {Box, Popper, MenuList, MenuItem, IconButton, Button, Grid, Container, Paper, TextField, Hidden, ImageList, ImageListItem, ClickAwayListener, ButtonBase, Link} from '@material-ui/core'
 import { makeStyles, withStyles } from '@material-ui/core/styles'
 import {AiOutlineMenu, AiFillGithub, AiOutlineDown} from 'react-icons/ai'
 import {MdTranslate, MdNotifications} from 'react-icons/md'
@@ -25,6 +25,11 @@ const useStyle = makeStyles({
         height: '24px'
     },
 })
+const StyledButtonBase = withStyles({
+    root: {
+        backgroundColor: '',
+    }
+})(ButtonBase)
 const options = [
     {name: 'option 1'},
     {name: 'option 222222222'},
@@ -48,17 +53,17 @@ export default function App2() {
     const [open, setOpen] = useState(true)
     return (
         <Grid container>
-            <Grid item style={{display: open ? '' : 'none', position: 'fixed', top: 0, height: '100vh', width: '200px', backgroundColor: 'gray', zIndex: 2}}>
-                <Box >
-                    <Button>My butt</Button>
-                    <Button>My butt</Button>
-                    <Button>My butt</Button>
-                    <Button>My butt</Button>
-                    <Button>My butt</Button>
-                </Box>
+            <Grid item style={{display: open ? '' : 'none', position: 'fixed', top: 0, height: '100vh', width: '200px', backgroundColor: 'white', zIndex: 2}}>
+                <Paper style={{padding: '10px 20px'}}>
+                    <Link color='primary' style={{fontSize: '1.25rem', cursor: 'pointer'}}>Material-UI</Link>
+                    <br/>
+                    <Link color='initial' style={{fontSize: '0.75rem', cursor: 'pointer'}}>v4.12.1</Link>
+                </Paper>
+                <StyledButtonBase className='btn' style={{padding: '10px 15px', width: '100%', justifyContent: 'start',}}>Getting Started</StyledButtonBase>
+                <StyledButtonBase className='btn' style={{padding: '10px 15px', width: '100%', justifyContent: 'start',}}>Getting Started</StyledButtonBase>
             </Grid>
-            <Grid item style={{width: '200px'}}/>
-            <Grid item lg={10} md={12}>
+            <Grid item style={{width: open ? '200px': 0}}/>
+            <Grid item lg={open ? 10 : 12} md={12}>
                 <NavBar menuClick={() => setOpen(prev => !prev)}/>
                 <Grid justifyContent='center' container spacing={1} style={{marginTop: '20px'}}>
                     {options.map( (option, index) =>
@@ -128,7 +133,7 @@ function NavBar (props) {
                             <Button onClick={handleClick} ref={languageRef} endIcon={<AiOutlineDown/>}>
                                 <MdTranslate size='24'/>
                             </Button>
-
+                            {/* test dropdown */}
                             <Popper anchorEl={anchorEl} open={open} style={{zIndex: 10}}>
                                 <ClickAwayListener onClickAway={() => setOpen(false)}>
                                     <Paper>
@@ -163,8 +168,8 @@ function NavBar (props) {
 }
 function ComplexGrid () {
     return (
-        <Button >
-            <Paper style={{padding: '10px', margin: '10px 5px'}}>
+        <Paper style={{margin: '10px 5px'}}>
+            <ButtonBase style={{padding: '10px', borderRadius: '4px'}}>
                 <Grid container spacing={3}>
                     <Grid item>
                         <img src='https://material-ui.com/static/images/grid/complex.jpg'/>
@@ -184,7 +189,7 @@ function ComplexGrid () {
                         199.99$
                     </Grid>
                 </Grid>
-            </Paper>
-        </Button>
+            </ButtonBase>
+        </Paper>
     )
 }
