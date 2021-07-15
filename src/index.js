@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import './App.css'
 import App2 from './App2';
+import Receipt from './form0.js'
 ReactDOM.render(
-    <App2 />,
+    <Receipt/>,
   document.getElementById('root')
 );
