@@ -5,6 +5,7 @@ import {AiOutlineMenu, AiFillGithub, AiOutlineDown} from 'react-icons/ai'
 import {MdTranslate, MdNotifications} from 'react-icons/md'
 import {VscColorMode} from 'react-icons/vsc'
 import {GiMoon} from 'react-icons/gi'
+import axios from 'axios'
 const useStyle = makeStyles({
     test: {
         border: '1px solid red'
@@ -51,6 +52,17 @@ export default function App2() {
     const [primary, setPrimary] = useState(0)
     const classes = useStyle()
     const [open, setOpen] = useState(true)
+    const [token, setToken] = useState('')
+    const login = () => {
+        console.log('login')
+        axios.post('http://uatinv.petrolimexaviation.com/api/v1/login', {
+            email: 'admin@dev.com',
+            password: 'pa@123',
+            type: 2
+        })
+        .then(res => setToken(res.data.data.token))
+        .catch(err => console.log(err))
+    }
     return (
         <Grid container>
             <Grid item style={{display: open ? '' : 'none', position: 'fixed', top: 0, height: '100vh', width: '200px', backgroundColor: 'white', zIndex: 2}}>
@@ -59,8 +71,9 @@ export default function App2() {
                     <br/>
                     <Link color='initial' style={{fontSize: '0.75rem', cursor: 'pointer'}}>v4.12.1</Link>
                 </Paper>
+                <StyledButtonBase onClick={login} className='btn' style={{padding: '10px 15px', width: '100%', justifyContent: 'start',}}>Login</StyledButtonBase>
                 <StyledButtonBase className='btn' style={{padding: '10px 15px', width: '100%', justifyContent: 'start',}}>Getting Started</StyledButtonBase>
-                <StyledButtonBase className='btn' style={{padding: '10px 15px', width: '100%', justifyContent: 'start',}}>Getting Started</StyledButtonBase>
+                <Box>{token}</Box>
             </Grid>
             <Grid item style={{width: open ? '200px': 0}}/>
             <Grid item lg={open ? 10 : 12} md={12}>
